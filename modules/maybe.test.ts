@@ -4,7 +4,7 @@ import { id } from "./identity";
 import { describe, test, expect } from "bun:test";
 
 describe("Maybe", () => {
-    describe("Functor laws", () => {
+    describe("Functor", () => {
         test("Identity: `fmap id = id`", () => {
             // Test with Just value
             {

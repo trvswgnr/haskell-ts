@@ -1,7 +1,18 @@
+/** Represents a contravariant operation that accepts an input of type `In` */
 export type ContravariantOp<In> = (_: In) => void;
+
+/** Represents a covariant operation that returns a value of type `Out` */
 export type CovariantOp<Out> = () => Out;
+
+/**
+ * Represents an invariant operation that both accepts and returns a value of
+ * type `T`
+ */
 export type InvariantOp<T> = (_: T) => T;
 
+/**
+ * Represents the structure of a higher-kinded type
+ */
 export interface Kind {
     /**
      * `In` is contravariant, meaning it can be used for operations that can
@@ -25,6 +36,14 @@ export interface Kind {
     readonly Target: unknown;
 }
 
+/**
+ * Represents a higher-kinded type with optional type parameters
+ * @template F - The base Kind
+ * @template In - The contravariant input type (default: never)
+ * @template Out1 - The first covariant output type (default: never)
+ * @template Out2 - The second covariant output type (default: never)
+ * @template Target - The invariant target type (default: never)
+ */
 export type Type<
     F extends Kind,
     In = never,
@@ -48,8 +67,13 @@ export type Type<
           readonly Target: InvariantOp<Target>;
       };
 
+/** A unique symbol used as a key for the KIND property */
 export declare const KIND: unique symbol;
 
+/**
+ * Represents a class that can be used with higher-kinded types
+ * @template F - The Kind associated with this class
+ */
 export interface Class<F extends Kind> {
     readonly [KIND]?: F;
 }
